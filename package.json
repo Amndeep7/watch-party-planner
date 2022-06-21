@@ -1,0 +1,50 @@
+{
+  "name": "watch-party-planner",
+  "version": "0.1.0",
+  "description": "Discord bot to help plan watch parties by leveraging the Discord and StrawPoll.com APIs.",
+  "main": "src/main.ts",
+  "scripts": {
+    "clean": "rm -rf build",
+    "build": "rm -rf build && tsc -b",
+    "watch": "rm -rf build && tsc -b --watch",
+    "lint": "eslint \"**/*.ts\" --fix && prettier --write package.json \"**/*.ts\"",
+    "run": "rm -rf build && tsc -b && node build/main.js"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "es6": true,
+      "es2022": true
+    },
+    "plugins": [
+      "github"
+    ],
+    "extends": [
+      "plugin:github/recommended",
+      "plugin:github/typescript"
+    ],
+    "rules": {
+      "camelcase": "error",
+      "no-console": "off"
+    }
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amndeep7/watch-party-planner.git"
+  },
+  "author": "Amndeep Singh Mann",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amndeep7/watch-party-planner/issues"
+  },
+  "homepage": "https://github.com/amndeep7/watch-party-planner#readme",
+  "devDependencies": {
+    "eslint": "^8.18.0",
+    "eslint-plugin-github": "^4.3.6",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4"
+  }
+}
