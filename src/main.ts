@@ -1,9 +1,46 @@
-const world_world = 'world';
+import axios from 'axios';
 
-const obj = { foo: "bar" };
+const res = await axios({
+	method: 'post',
+	url: 'https://api.strawpoll.com/v3/polls',
+	data: {
+		"title": "test",
+		"media": null,
+		"poll_options": [
+			{ type: "text", "value": "foo"},
+			{ type: "text", "value": "bar"}
+		],
+		poll_config: {
+			is_private: true,
+			vote_type: "default",
+			allow_comments: false,
+			allow_indeterminate: false,
+			allow_other_option: false,
+			custom_design_colors: null,
+			deadline_at: null,
+			duplication_checking: "none",
+			allow_vpn_voters: true,
+			edit_vote_permissions: "nobody",
+			force_appearance: null,
+			hide_participants: false,
+			is_multiple_choice: true,
+			multiple_choice_min: 0,
+			multiple_choice_max: 0,
+			number_of_winners: 1,
+			randomize_options: true,
+			require_voter_names: false,
+			results_visibility: "always",
+			user_custom_design: false
+		},
+		poll_meta: {
+			"description": null
+		},
+		type: "multiple_choice"
+	},
+	headers: {
+		"Content-Type": "application/json",
+		"X-API-KEY": "YOUR_OWN_APIKEY"
+	}
+});
 
-const hello = (who: string = world_world): string => `Hello ${who}!`;
-
-console.log(hello());
-
-export default hello;
+console.log(res.data);
