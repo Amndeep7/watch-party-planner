@@ -1,4 +1,7 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const res = await axios({
 	method: 'post',
@@ -39,7 +42,7 @@ const res = await axios({
 	},
 	headers: {
 		"Content-Type": "application/json",
-		"X-API-KEY": "YOUR_OWN_APIKEY"
+		"X-API-KEY": `${process.env.STRAWPOLL_API_KEY}`
 	}
 });
 
