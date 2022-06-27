@@ -11,3 +11,7 @@ Discord bot to help plan watch parties by leveraging the Discord and StrawPoll.c
 `docker build -t watch-party-planner-prod:latest -f Dockerfile.prod .`
 
 `docker run -it watch-party-planner-prod:latest`
+
+## Notes
+### Rebuild images
+Remember to rebuild images every now and again by adding the `--pull` and `--no-cache` arguments to the build command every now and again.
