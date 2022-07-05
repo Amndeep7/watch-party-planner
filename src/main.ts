@@ -1,5 +1,8 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
+import {REST} from '@discordjs/rest';
+import {Client} from 'discord.js';
+import {GatewayIntentBits, Routes} from 'discord-api-types/v10';
 
 dotenv.config();
 
@@ -47,3 +50,38 @@ const res = await axios({
 });
 
 console.log(res.data);
+
+if (!process.env.DISCORD_BOT_TOKEN || !process.env.DISCORD_CLIENT_ID) {
+	throw new Error('Missing either one of the discord bot token or client id');
+}
+
+const commands = [{name: 'ping', description: 'will pong'}];
+const rest = new REST({version: '10'}).setToken(process.env.DISCORD_BOT_TOKEN);
+const client = new Client({intents: [GatewayIntentBits.Guilds]});
+
+client.on('ready', async () => {
+	console.log(`Logged in as ${client?.user?.tag}`);
+	console.log('Refreshing slash commands');
+	try {
+		for(const guildId of client.guilds.cache.keys()) {
+			await rest.put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID || '', guildId), {body: commands});
+		}
+	} catch (error) {
+		console.error('Refreshing slash command failed', error);
+	}
+	console.log('Refresh completed');
+});
+
+client.on('interactionCreate', async (interaction) => {
+	if(!(interaction.isCommand())) {
+		return;
+	}
+
+	if(interaction.commandName === 'ping') {
+		console.log('Got ping');
+		await interaction.reply('pong');
+		console.log('Did pong');
+	}
+});
+
+client.login(process.env.DISCORD_BOT_TOKEN);
